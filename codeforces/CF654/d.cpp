@@ -51,20 +51,39 @@ template<class T> void ckmin(T &a, T b) { a = min(a, b); }
 template<class T> void ckmax(T &a, T b) { a = max(a, b); }
 
 void solve() {
-    string s;
-    cin >> s;
-    int cnt = 0;
-    for(char c:s) {
-        if (c == '1') {
-            cnt++;
+    int n,k;
+    cin >> n >> k;
+    vector<string>a(n,string(n,'0'));
+    bool upper = true;
+    int x = 0;
+    int y = 0;
+    int cn = 0;
+    int filled = 0;
+    while(k>0) {
+        a[y][x] = '1';
+        x++;
+        y++;
+        filled = 1;
+        if (upper) {
+            if (x == n || y == n) {
+                cn++;
+                upper = !upper;
+                x = 0;
+                y = cn;
+                filled = 0;
+            }
+        } else {
+            if (x == n || y == n) {
+                x = n-cn;
+                upper = !upper;
+                y = 0;
+            }
         }
+        k--;
     }
-    int _cnt = s.size()-cnt;
-    debug() << imie(_cnt);
-    if (min(_cnt,cnt)%2) {
-        cout << "DA\n";
-    }else {
-        cout << "NET\n";
+    cout << filled * 2 << endl;
+    for(int i=0;i<n;i++) {
+        cout << a[i] << endl;
     }
 }
 

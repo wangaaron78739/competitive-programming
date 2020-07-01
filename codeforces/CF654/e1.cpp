@@ -1,3 +1,4 @@
+
 #include <bits/stdc++.h>
 using namespace std;
 template <class c> struct rge { c b, e; };
@@ -50,27 +51,59 @@ typedef long double ld;
 template<class T> void ckmin(T &a, T b) { a = min(a, b); }
 template<class T> void ckmax(T &a, T b) { a = max(a, b); }
 
-void solve() {
-    string s;
-    cin >> s;
-    int cnt = 0;
-    for(char c:s) {
-        if (c == '1') {
-            cnt++;
-        }
+ll n,p;
+ll fact(ll x) {
+    int total = 1;
+    for(int i=1;i<=x;i++) {
+       total = total*x;
+       total %= p;
     }
-    int _cnt = s.size()-cnt;
-    debug() << imie(_cnt);
-    if (min(_cnt,cnt)%2) {
-        cout << "DA\n";
-    }else {
-        cout << "NET\n";
-    }
+    return total;
 }
 
 int main() {
-    int t;
-    cin >> t;
-    while(t--) solve();
+    cin >> n >> p;
+    vector<int> a(n);
+    vector<int> cnt(2001,0);
+    vector<int> pref(2001,0);
+    for(int i=0;i<n;i++) {
+        cin >> a[i];
+        cnt[a[i]]++;
+    }
+    for(int i=1;i<=2000;i++){
+        pref[i] = cnt[i] + pref[i-1];
+    }
+    sort(a.begin(),a.end());
+    int mi = a[0];
+    int ma = a[n-1];
+    vector<int> ans1;
+    for(int i=mi;i<=ma;i++){ 
+        if (pref[i] >= p) {
+            break;
+        }
+        int reachable = pref[i] + i;
+        for(int j=reachable+1; j<=ma;j++) {
+            if (pref[reachable])
+        }
+    }
+    vector<int> ans;
+    for(int x: ans1) {
+        int i = 0;
+        int curr = x;
+        while(i < n && a[i]<= curr) {
+            curr++;
+            i++;
+        }
+        if (i == n) ans.push_back(x);
+    }
+    if (ans.size() == 0) {
+        cout << "0\n\n";
+        return 0;
+    }
+    cout << ans.size() << endl;
+    for(int x:ans) {
+        cout << x << " ";
+    }
+    cout << "\n";
     return 0;    
 }

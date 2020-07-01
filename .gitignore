@@ -1,4 +1,14 @@
+# Ignore all
+*
+
+# Unignore all with extensions
+!*.*
+
+# Unignore all dirs
+!*/
+
 # Prerequisites
+
 *.d
 
 # Compiled Object files
@@ -30,3 +40,6 @@
 *.exe
 *.out
 *.app
+
+
+.DS_Store

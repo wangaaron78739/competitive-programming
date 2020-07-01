@@ -50,27 +50,17 @@ typedef long double ld;
 template<class T> void ckmin(T &a, T b) { a = min(a, b); }
 template<class T> void ckmax(T &a, T b) { a = max(a, b); }
 
-void solve() {
-    string s;
-    cin >> s;
-    int cnt = 0;
-    for(char c:s) {
-        if (c == '1') {
-            cnt++;
-        }
-    }
-    int _cnt = s.size()-cnt;
-    debug() << imie(_cnt);
-    if (min(_cnt,cnt)%2) {
-        cout << "DA\n";
-    }else {
-        cout << "NET\n";
-    }
-}
-
 int main() {
     int t;
     cin >> t;
-    while(t--) solve();
+    while(t--) {
+        ll n,r;
+        cin >> n >> r;
+        if (n-1 < r) {
+            cout << (n-1)*(n)/2+1 << endl;
+        }else {
+            cout << r*(r+1)/2 << endl;
+        }
+    }
     return 0;    
 }

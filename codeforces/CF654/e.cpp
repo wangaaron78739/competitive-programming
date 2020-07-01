@@ -50,27 +50,62 @@ typedef long double ld;
 template<class T> void ckmin(T &a, T b) { a = min(a, b); }
 template<class T> void ckmax(T &a, T b) { a = max(a, b); }
 
-void solve() {
-    string s;
-    cin >> s;
-    int cnt = 0;
-    for(char c:s) {
-        if (c == '1') {
-            cnt++;
-        }
+ll n,p;
+ll fact(ll x) {
+    int total = 1;
+    for(int i=1;i<=x;i++) {
+       total = total*x;
+       total %= p;
     }
-    int _cnt = s.size()-cnt;
-    debug() << imie(_cnt);
-    if (min(_cnt,cnt)%2) {
-        cout << "DA\n";
-    }else {
-        cout << "NET\n";
-    }
+    return total;
 }
 
 int main() {
-    int t;
-    cin >> t;
-    while(t--) solve();
+    cin >> n >> p;
+    vector<int> a(n);
+    for(int i=0;i<n;i++) {
+        cin >> a[i];
+    }
+    sort(a.begin(),a.end());
+    int mi = a[0];
+    int ma = a[n-1];
+    vector<int> ans1;
+    vector<int> ans;
+    for(int i=mi;i<=ma;i++){ 
+        int num = upper_bound(a.begin(),a.end(),i)-a.begin();
+        if (num >= p) break;
+        int s = num;
+        //deque<int> temp(a.begin(),a.begin()+num);
+        int curr = i;
+        int imposs = false;
+        while(s) {
+            //debug() << imie(temp);
+            //temp.pop_front();
+            s--;
+            curr++;
+            while(num < n && a[num]<=curr) {
+                //temp.push_back(a[num++]);
+                s++;
+                num++;
+            }
+            //debug() << imie(temp);
+            if (s>=p) {
+                imposs = true;
+                break;
+            }
+        }
+        if (imposs) break;
+        if (imposs == false && curr >= ma) ans.push_back(i);
+        
+    }
+    if (ans.size() == 0) {
+        cout << "0\n\n";
+        return 0;
+    }
+    cout << ans.size() << endl;
+    for(int x:ans) {
+        cout << x << " ";
+    }
+    cout << "\n";
     return 0;    
 }
