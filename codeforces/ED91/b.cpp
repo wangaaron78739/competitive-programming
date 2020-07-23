@@ -50,50 +50,34 @@ typedef long double ld;
 template<class T> void ckmin(T &a, T b) { a = min(a, b); }
 template<class T> void ckmax(T &a, T b) { a = max(a, b); }
 
-const ll MOD = 1e9+7;
-
-void add_self(ll&a, ll b) {
-	a = (a+b)%MOD;
+void solve() {
+    string k;
+    cin >> k;
+    int r=0,p=0,s=0;
+    for(char c:k) {
+        switch(c) {
+            case 'R':
+                r++;
+                break;
+            case 'P':
+                p++;
+                break;
+            case 'S':
+                s++;
+                break;
+        }
+    }
+    if (r == max(r,max(p,s))) { 
+        cout << string(k.size(),'P') << endl;
+    } else if (s == max(r,max(p,s))) {
+        cout << string(k.size(),'R') << endl;
+    } else {
+        cout << string(k.size(),'S') << endl;
+    }
 }
-
-const ll mod2 = (MOD-(MOD/2ll))%MOD;
-
-ll gcd (ll a, ll b) {
-    if (b == 0)
-        return a;
-    else
-        return gcd (b, a % b);
-}
-
 int main() {
-	int n;
-	cin >> n;
-	map<pair<ll,ll>,ll> m;
-	for(int i=0;i<n;i++) {
-		ll a, b;
-		cin >> a >> b;
-		ll c = gcd(abs(a),abs(b));
-		a /= c;
-		b /= c;
-		m[{a,b}]++;
-	}
-	ll sum = 0ll;
-	vector<array<ll,2>> dir{{1ll,-1ll},{-1ll,1ll}};
-	for(auto p:m) {
-		pair<ll,ll> v = p.first;
-		ll freq = p.second;
-		//debug() << imie(v)  ;
-		for(auto v2: dir) {
-            debug() <<imie(freq) imie(m[{v.first*v2[0],v.second*v2[1]}]);	
-		    debug() <<imie(m);	
-			add_self(sum,freq*m[{v.second*v2[0],v.first*v2[1]}]);
-		}
-	}
-	//debug() << vector<pair<pair<ll,ll>,ll>>(m.begin(),m.end()) << endl;
-	//debug() << dir;
-	sum *= mod2;
-	sum %= MOD;
-	
-	cout << sum << endl;
+    int t;
+    cin >> t;
+    while(t--) solve();
     return 0;    
 }
