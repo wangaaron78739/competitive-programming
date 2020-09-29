@@ -1,15 +1,15 @@
 #include <bits/stdc++.h>
 using namespace std;
-
+ 
 #define ll long long
 #define ld long double
 #define ar array
-
+ 
 #define vt vector
 #define pb push_back
 #define all(c) (c).begin(), (c).end()
 #define sz(x) (int)(x).size()
-
+ 
 #define F_OR(i, a, b, s) for (int i=(a); (s)>0?i<(b):i>(b); i+=(s))
 #define F_OR1(e) F_OR(i, 0, e, 1)
 #define F_OR2(i, e) F_OR(i, 0, e, 1)
@@ -19,29 +19,29 @@ using namespace std;
 #define F_ORC(...) GET5(__VA_ARGS__, F_OR4, F_OR3, F_OR2, F_OR1)
 #define FOR(...) F_ORC(__VA_ARGS__)(__VA_ARGS__)
 #define EACH(x, a) for (auto& x: a)
-
+ 
 template<class T> bool umin(T& a, const T& b) {
     return b<a?a=b, 1:0;
 }
-template<class T> bool umax(T& a, const T& b) {
+template<class T> bool umax(T& a, const T& b) { 
     return a<b?a=b, 1:0;
-}
-
+} 
+ 
 ll FIRSTTRUE(function<bool(ll)> f, ll lb, ll rb) {
     while(lb<rb) {
         ll mb=(lb+rb)/2;
-        f(mb)?rb=mb:lb=mb+1;
-    }
+        f(mb)?rb=mb:lb=mb+1; 
+    } 
     return lb;
 }
 ll LASTTRUE(function<bool(ll)> f, ll lb, ll rb) {
     while(lb<rb) {
         ll mb=(lb+rb+1)/2;
-        f(mb)?lb=mb:rb=mb-1;
-    }
+        f(mb)?lb=mb:rb=mb-1; 
+    } 
     return lb;
 }
-
+ 
 template<class A> void read(vt<A>& v);
 template<class A, size_t S> void read(ar<A, S>& a);
 template<class T> void read(T& x) {
@@ -149,7 +149,7 @@ template<class T> void offset(ll o, vt<T>& x) {
 template<class T, size_t S> void offset(ll o, ar<T, S>& x) {
     EACH(a, x)
         offset(o, a);
-
+}
  
 mt19937 mt_rng(chrono::steady_clock::now().time_since_epoch().count());
 ll randint(ll a, ll b) {
@@ -164,25 +164,26 @@ template<class T, class U> void vti(vt<T> &v, U x, size_t n, size_t m...) {
     EACH(a, v)
         vti(a, x, m);
 }
-
+ 
 const int d4i[4]={-1, 0, 1, 0}, d4j[4]={0, 1, 0, -1};
 const int d8i[8]={-1, -1, 0, 1, 1, 1, 0, -1}, d8j[8]={0, 1, 1, 1, 0, -1, -1, -1};
 
+void solve() {
+    int n,k;
+    cin >> n >> k;
+    vector<int> a(n);
+    read(a);
+    int ans = 0;
+    sort(all(a));
+    for(int i=1;i<n;i++){
+        ans += (k-a[i])/a[0];
+    }
+    cout << ans << endl;
+}
 int main() {
     ios::sync_with_stdio(0);
     cin.tie(0);
     int t;
     cin >> t;
-    while(t--) {
-        int n;
-        cin >> n;
-        string s;
-        string a;
-        cin >> s;
-        FOR(n) {
-            a += s[2*i];
-        }
-
-        cout << a << endl;
-    }
+    while(t--) solve();
 }
